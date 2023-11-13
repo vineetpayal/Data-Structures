@@ -62,7 +62,7 @@ int main()
 {
     char s[10];
     printf("Enter expression: ");
-    gets(s);
+    scanf("%s",s);
     int maxLength = strlen(s);
     int opndTop = -1;
     int oprtrTop = -1;
