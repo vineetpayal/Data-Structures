@@ -35,13 +35,13 @@ void insert(node **head, int value)
     }
 }
 
-int count(node *head, int key)
+int count(node *head, int value)
 {
     int count = 0;
     node *temp = head;
     while (temp != NULL)
     {
-        if (temp->data == key)
+        if (temp->data == value)
         {
             count++;
         }
