@@ -1,11 +1,13 @@
 /*
-Given the head of a singly linked list, return true if it is a palindrome or false otherwise.
-Input: head = [1,2,2,1]
-Output: true
+Given head which is a reference node to a singly linked list. The value of each node in the
+linked list is either 0 or 1. The linked list holds the binary representaKon of a number. Return
+the decimal value of the number in the linked list.
+Ex: Input= [1,0,1]
+Output= 5
 */
-
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 struct node
 {
@@ -35,6 +37,17 @@ void insert(node **head, int value)
         temp->next = newNode;
     }
 }
+void display(node *head)
+{
+    node *temp = head;
+    while (temp->next != NULL)
+    {
+        printf("%d->", temp->data);
+        temp = temp->next;
+    }
+
+    printf("%d\n", temp->data);
+}
 
 node *reverse(node *head)
 {
@@ -50,66 +63,32 @@ node *reverse(node *head)
         curr = next;
     }
     reverseList = prev;
+
     return reverseList;
 }
 
-int isPalindrome(node *head)
+int binaryToDecimal(node *head)
 {
-    int flag = 1;insert(&head, 1);
-    insert(&head, 3);
-    insert(&head, 2);
-    insert(&head, 1);
     node *rev = reverse(head);
+    node *temp = rev;
+    int num = 0;
 
-    node *t1 = head;
-    node *t2 = rev;
-
-    while (t1 != NULL && t2 != NULL)
+    for (int i = 0; temp != NULL; i++)
     {
-        if (t1->data != t2->data)
-        {
-            flag = 0;
-            break;
-        }
-        t1 = t1->next;
-        t2 = t2->next;
-    }
-    if (t1 != t1)
-    {
-        flag = 0;
-    }
-    return flag;
-}
-
-void display(node *head)
-{
-    node *temp = head;
-    while (temp->next != NULL)
-    {
-        printf("%d->", temp->data);
+        num = num + (temp->data) * (pow(2, i));
         temp = temp->next;
     }
-    printf("%d\n", temp->data);
+
+    return num;
 }
 
 void main()
 {
     node *head = NULL;
     insert(&head, 1);
-    insert(&head, 2);
-    insert(&head, 3);
-    insert(&head, 4);
-    insert(&head, 3);
-    insert(&head, 2);
+    insert(&head, 0);
     insert(&head, 1);
     display(head);
-
-    if (isPalindrome(head))
-    {
-        printf("\nList is palindrome\n");
-    }
-    else
-    {
-        printf("\nList is not palindrome\n");
-    }
+    int result = binaryToDecimal(head);
+    printf("Decimal Equivalent:%d\n", result);
 }
