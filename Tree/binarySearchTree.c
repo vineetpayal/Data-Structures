@@ -46,15 +46,32 @@ node *insert(node *root, int key)
     return root;
 }
 
+int search(node *root, int key)
+{
+    if (root->key == key)
+    {
+        return root->key;
+    }
+
+    if (key < root->key)
+    {
+        return search(root->left, key);
+    }
+
+    return search(root->right, key);
+}
+
 void main()
 {
     node *root = NULL;
-    root = createNode(100);
-    insert(root, 1);
-    insert(root, 2);
+    root = createNode(9);
     insert(root, 6);
     insert(root, 4);
     insert(root, 3);
-    insert(root, 5);
+    insert(root, 10);
+    insert(root, 2);
+    insert(root, 12);
     inorder(root);
+    int result = search(root, 10);
+    printf("\n%d found!", result);
 }
