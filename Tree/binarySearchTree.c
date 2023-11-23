@@ -27,6 +27,28 @@ void inorder(node *root)
     inorder(root->right);
 }
 
+void preorder(node *root)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    printf("%d ", root->key);
+    preorder(root->left);
+    preorder(root->right);
+}
+
+void postorder(node *root)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    postorder(root->left);
+    postorder(root->right);
+    printf("%d ", root->key);
+}
+
 node *insert(node *root, int key)
 {
     if (root == NULL)
