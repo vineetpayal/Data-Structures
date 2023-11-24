@@ -1,9 +1,7 @@
 /*
-Q2. Let A and B be two structures of type Linked List. Write a ‘C ’ program to create a new
-Linked List ‘S’ that contains elements alternately from A and B beginning with the first
-element of A. If you run out of elements in one of the lists, then append the remaining
+Q3.Write a C program to create a single linked list then input a value V, partition it such that all nodes less
+than V come before nodes greater than or equal to V.
 */
-
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -35,24 +33,40 @@ void insert(node **head, int value)
     }
 }
 
-node *alternateMerge(node *A, node *B)
+node *partition(node **head, int v)
 {
-    node *result = NULL;
-    while (A != NULL || B != NULL)
-    {
-        if (A != NULL)
-        {
-            insert(&result, A->data);
-            A = A->next;
-        }
+    node *temp = *head;
+    node *small = NULL;
+    node *great = NULL;
+    node *vNode = NULL;
 
-        if (B != NULL)
+    while (temp != NULL)
+    {
+        if (temp->data < v)
         {
-            insert(&result, B->data);
-            B = B->next;
+            insert(&small, temp->data);
         }
+        else
+        {
+            insert(&great, temp->data);
+        }
+        temp = temp->next;
     }
-    return result;
+
+    if (small == NULL)
+    {
+        return great;
+    }
+    else
+    {
+        node *temp = small;
+        while (temp->next != NULL)
+        {
+            temp = temp->next;
+        }
+        temp->next = great;
+    }
+    return small;
 }
 
 void display(node *head)
@@ -63,47 +77,39 @@ void display(node *head)
         printf("%d->", temp->data);
         temp = temp->next;
     }
-    printf("%d\n", temp->data);
+    printf("%d", temp->data);
 }
 
 void main()
 {
-    node *A = NULL;
-    node *B = NULL;
-    node *R = NULL; // result
+    node *head = NULL;
     int choice, num;
 
     while (1)
     {
-        printf("\n\tInstructions:\n");
-        printf("Press 1 to insert in A\nPress 2 to insert in B\nPress 3 to display result:\nPress 4 to exit\n");
+        printf("\n\tInstructions:\nPress 1 to insert\nPress 2 to enter value of V\nPress 3 to display Partitioned list\nPress 4 to exit\n");
         printf("\nEnter choice: ");
         scanf("%d", &choice);
 
         switch (choice)
         {
         case 1:
-            printf("Enter A: ");
+            printf("Enter element: ");
             scanf("%d", &num);
-            insert(&A, num);
+            insert(&head, num);
             break;
         case 2:
-            printf("Enter B: ");
+            printf("Enter V: ");
             scanf("%d", &num);
-            insert(&B, num);
+            head = partition(&head, num);
             break;
-
         case 3:
-            R = alternateMerge(A, B);
-            display(R);
+            display(head);
             break;
-
         case 4:
             exit(0);
-
         default:
-            printf("Invalid Instruction");
-            break;
+            printf("Invalid Instruction\n");
         }
     }
 }
