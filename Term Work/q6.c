@@ -1,5 +1,5 @@
 /*
-Write a C program to create two link lists positive and negative from Original linked list, so that
+Q6.Write a C program to create two link lists positive and negative from Original linked list, so that
 positive linked list contains all positive elements and negative linked list contains negative elements.
 Positive and negative linked lists should use the node of existing original linked list.
 */
