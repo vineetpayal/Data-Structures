@@ -4,14 +4,12 @@ than V come before nodes greater than or equal to V.
 */
 #include <stdio.h>
 #include <stdlib.h>
-
 struct node
 {
     int data;
     struct node *next;
 };
 typedef struct node node;
-
 void insert(node **head, int value)
 {
     node *newNode;
@@ -38,7 +36,6 @@ node *partition(node **head, int v)
     node *temp = *head;
     node *small = NULL;
     node *great = NULL;
-    node *vNode = NULL;
 
     while (temp != NULL)
     {

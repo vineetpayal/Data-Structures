@@ -38,17 +38,6 @@ void insert(node **head, int value)
     }
 }
 
-void insertAtBeg(node **head, int value)
-{
-    node *newNode;
-    newNode = (node *)malloc(sizeof(node));
-    newNode->data = value;
-    newNode->next = NULL;
-
-    newNode->next = *head;
-    *head = newNode;
-}
-
 void display(node *head)
 {
     node *temp = head;
@@ -87,8 +76,6 @@ node *subtract(node *num1, node *num2)
         if (num2 != NULL)
             num2 = num2->next;
     }
-
-    // Remove leading zeros
     while (result != NULL && result->data == 0)
     {
         temp = result;
@@ -97,19 +84,6 @@ node *subtract(node *num1, node *num2)
     }
 
     return result;
-}
-
-node *toLinkedList(int num)
-{
-    node *numList = NULL;
-    while (num != 0)
-    {
-        // Number is extracted from last digit
-        // so inserting at beginning to avoid reversing the linked last later.
-        insertAtBeg(&numList, num % 10);
-        num = num / 10;
-    }
-    return numList;
 }
 
 void main()
@@ -131,17 +105,22 @@ void main()
         case 1:
             printf("Enter num1: ");
             scanf("%d", &num);
-            num1 = toLinkedList(num);
+            insert(&num1, num);
             break;
         case 2:
             printf("Enter num2: ");
             scanf("%d", &num);
-            num2 = toLinkedList(num);
+            insert(&num2, num);
             break;
         case 3:
             if (num1 != NULL && num2 != NULL)
             {
                 result = subtract(num1, num2);
+                printf("Num1: ");
+                display(num1);
+                printf("Num2: ");
+                display(num2);
+                printf("Result: ");
                 display(result);
             }
             else
