@@ -57,7 +57,7 @@ int main()
     scanf("%d", &n);
 
     char arr[n];
-
+ 
     printf("Enter the characters: ");
     for (int i = 0; i < n; i++)
     {
