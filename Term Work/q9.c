@@ -6,7 +6,6 @@ technique.
 #include <stdio.h>
 #include <stdlib.h>
 
-// Function to partition the array and return the pivot index
 int partition(char arr[], int low, int high)
 {
     char pivot = arr[high];
