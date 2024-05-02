@@ -1,21 +1,31 @@
 /*
-Q3.Write a C program to create a single linked list then input a value V, partition it such that all nodes less
-than V come before nodes greater than or equal to V.
+Q6.Write a C program to create two link lists positive and negative from Original linked list, so that
+positive linked list contains all positive elements and negative linked list contains negative elements.
+Positive and negative linked lists should use the node of existing original linked list.
 */
+
 #include <stdio.h>
 #include <stdlib.h>
+
 struct node
 {
     int data;
     struct node *next;
 };
 typedef struct node node;
-void insert(node **head, int value)
+
+node *createNode(int value)
 {
     node *newNode;
     newNode = (node *)malloc(sizeof(node));
     newNode->data = value;
     newNode->next = NULL;
+    return newNode;
+}
+
+void insert(node **head, int value)
+{
+    node *newNode = createNode(value);
     if (*head == NULL)
     {
         *head = newNode;
@@ -31,39 +41,21 @@ void insert(node **head, int value)
     }
 }
 
-node *partition(node **head, int v)
+void split(node *original, node **pos, node **neg)
 {
-    node *temp = *head;
-    node *small = NULL;
-    node *great = NULL;
-
+    node *temp = original;
     while (temp != NULL)
     {
-        if (temp->data < v)
+        if (temp->data >= 0)
         {
-            insert(&small, temp->data);
+            insert(pos, temp->data);
         }
         else
         {
-            insert(&great, temp->data);
+            insert(neg, temp->data);
         }
         temp = temp->next;
     }
-
-    if (small == NULL)
-    {
-        return great;
-    }
-    else
-    {
-        node *temp = small;
-        while (temp->next != NULL)
-        {
-            temp = temp->next;
-        }
-        temp->next = great;
-    }
-    return small;
 }
 
 void display(node *head)
@@ -74,18 +66,20 @@ void display(node *head)
         printf("%d->", temp->data);
         temp = temp->next;
     }
-    printf("%d", temp->data);
+    printf("%d\n", temp->data);
 }
 
 void main()
 {
     node *head = NULL;
+    node *pos = NULL, *neg = NULL;
     int choice, num;
 
     while (1)
     {
-        printf("\n\tInstructions:\nPress 1 to insert\nPress 2 to enter value of V\nPress 3 to display Partitioned list\nPress 4 to exit\n");
-        printf("\nEnter choice: ");
+        printf("\n\tInstructions\n");
+        printf("Press 1 to insert.\nPress 2 to split into positive and negative.\nPress 3 to exit\n");
+        printf("Enter choice: ");
         scanf("%d", &choice);
 
         switch (choice)
@@ -95,18 +89,20 @@ void main()
             scanf("%d", &num);
             insert(&head, num);
             break;
+
         case 2:
-            printf("Enter V: ");
-            scanf("%d", &num);
-            head = partition(&head, num);
+            split(head, &pos, &neg);
+            printf("Original: ");
+            display(head);
+            printf("Positive: ");
+            display(pos);
+            printf("Negative: ");
+            display(neg);
             break;
         case 3:
-            display(head);
-            break;
-        case 4:
             exit(0);
         default:
-            printf("Invalid Instruction\n");
+            printf("Invalid instruction.");
         }
     }
 }

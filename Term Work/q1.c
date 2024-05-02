@@ -1,5 +1,5 @@
 /*
-Write a C program to Insert and Delete elements form a Queue using link list ,each node
+Q1.Write a C program to Insert and Delete elements form a Queue using link list ,each node
 should have the following inforamaion about a product Product_Id(char) , Product_Name(string) ,
 Total_sale(integer),Product_Grade(Char
 */
@@ -47,6 +47,7 @@ void enqueue(node **f, node **b, node *newNode)
     else
     {
         (*b)->next = newNode;
+        *b = newNode;
     }
 }
 
@@ -84,7 +85,7 @@ void display(node **f, node **b)
         {
             printf("Product Name: %s\nProduct Id: %c\nTotal Sale: %d\nProduct Grade: %c\n",
                    temp->Product_Name, temp->Product_Id, temp->Total_sale, temp->Product_Grade);
-            temp = temp->next;
+            temp = temp->next;       
         }
         printf("Product Name: %s\nProduct Id: %c\nTotal Sale: %d\nProduct Grade: %c\n",
                temp->Product_Name, temp->Product_Id, temp->Total_sale, temp->Product_Grade);
